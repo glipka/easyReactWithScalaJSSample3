@@ -1,1 +1,1 @@
-# easyReactWithScalaSample3
+# easyReactWithScalaJSSample2
