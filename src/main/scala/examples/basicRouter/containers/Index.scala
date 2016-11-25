@@ -33,9 +33,9 @@ import com.glipka.easyReactJS.react.ReactTypedConstructor
 import scala.scalajs.js.annotation.JSExportAll
 import com.glipka.easyReactJS.reactRouter.ReactRouter._
 import com.glipka.easyReactJS.reactRouter._
-import com.glipka.easyReactJS.react.xml.XmlToCreatElement  
+import com.glipka.easyReactJS.react.xml.XmlToCreatElement
 import examples.basicRouter.components._
- 
+
 import com.glipka.easyReactJS.reduxForm._
 import com.glipka.easyReactJS.reduxForm.ReduxForm._
 
@@ -65,12 +65,13 @@ object Index extends JSApp {
                      <div>
                        <h2>Some usages of Ajax</h2>
                        <ul role="nav">
-                         <li><Link to="/json1" activeStyle={ styleRed }>Get Ajax and Results in Griddle </Link></li>                    
+                         <li><Link to="/json1" activeStyle={ styleRed }>Get Ajax and Results in Griddle </Link></li>
+                         <li><Link to="/griddleWithExternalData" activeStyle={ styleRed }>Get Ajax and Results in Griddle with ExternalData </Link></li>
                        </ul>
                      </div>
                      <Match exactly={ true } pattern="/" component={ home }/>
-                     <Match pattern="/json1" component={Json1}/>
-                     
+                     <Match pattern="/json1" component={ Json1 }/>
+                     <Match pattern="/griddleWithExternalData" component={ GriddleWithExternalData }/>
                      <Miss component={ noMatch }/>
                    </div>
                  </BrowserRouter>

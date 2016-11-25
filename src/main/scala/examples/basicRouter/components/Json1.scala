@@ -35,7 +35,7 @@ class JSStateJson1(val table: js.Array[Dynamic]) extends js.Object {
 
 @ScalaJSDefined
 class Json1(val props: JSPropsJson1Components[Any]) extends Component[JSPropsJson1Components[Any], JSStateJson1](props) {
-
+this.state = new JSStateJson1(js.Array())
   var columnMeta = js.Array(
     literal(
       "columnName" -> "userId", 
@@ -68,14 +68,13 @@ class Json1(val props: JSPropsJson1Components[Any]) extends Component[JSPropsJso
     Ajax.get(url).onSuccess {
       case xhr: XMLHttpRequest =>
         val responseText = js.JSON.parse(xhr.responseText).asInstanceOf[js.Array[Dynamic]]
-        this.state = new JSStateJson1(responseText)
+       
         setState(new JSStateJson1(responseText))
 
       case _ => println("erreur parsing")
 
     }
-    this.state = new JSStateJson1(js.Array())
-    // 
+      
 
   }
 
