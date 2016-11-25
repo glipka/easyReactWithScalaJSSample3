@@ -67,7 +67,7 @@ class GriddleWithExternalData(val props: JSPropsGriddleWithExternalData) extends
       case xhr: XMLHttpRequest =>
         val results = js.JSON.parse(xhr.responseText).asInstanceOf[js.Array[Dynamic]]
         setState(new JSStateGriddleWithExternalData(results.slice(0, 10), 0, (results.length / 10).toInt, 10, "", false, results))
-        initialData=results
+        initialData = results
 
       case _ => println("erreur parsing")
 
@@ -97,7 +97,7 @@ class GriddleWithExternalData(val props: JSPropsGriddleWithExternalData) extends
     this.setState(new JSStateGriddleWithExternalData(result, state.currentPage, maxPages, size, state.externalSortColumn, state.externalSortAscending, state.pretendServerData))
 
   }
-  
+
   val sortData: js.Function3[String, Boolean, js.Array[js.Dynamic], JSStateGriddleWithExternalData] = (sortColumn: String, sortAscending: Boolean, data: js.Array[js.Dynamic]) => {
 
     val sortedData = if (sortAscending) {
@@ -135,25 +135,32 @@ class GriddleWithExternalData(val props: JSPropsGriddleWithExternalData) extends
   }
 
   def setFilter: js.Function = (filter: String) => {
-    println(s"contenu du filtre= $filter length buffer= ${state.pretendServerData.length}" )
+    println(s"contenu du filtre= $filter length buffer= ${state.pretendServerData.length}")
     //filtering should generally occur on the server (or wherever) 
     //this is a lot of code for what should normally just be a method that is used to pass data back and forth
-    var sortedData = this.sortData(this.state.externalSortColumn, this.state.externalSortAscending, this.state.pretendServerData);
-    if (filter == "") { 
+    var sortedData = this.sortData(this.state.externalSortColumn, this.state.externalSortAscending, initialData);
+    if (filter == "") {
       // on reinitialise avec les donnees initiales
-      this.setState(new JSStateGriddleWithExternalData(initialData.slice(0,state.externalResultsPerPage), 0, (initialData.length/state.externalResultsPerPage).toInt, state.externalResultsPerPage, state.externalSortColumn, state.externalSortAscending, initialData))
-      
+      this.setState(new JSStateGriddleWithExternalData(initialData.slice(0, state.externalResultsPerPage), 0, (initialData.length / state.externalResultsPerPage).toInt, state.externalResultsPerPage, state.externalSortColumn, state.externalSortAscending,initialData))
+
     } else {
-      val filteredData = sortedData.pretendServerData.filter(row => 
+      val filteredData = sortedData.pretendServerData.filter(row =>
         {
-          
-        row.id.toString.toLowerCase.indexOf(filter.toLowerCase) >= 0 || 
-        row.userId.toString.toLowerCase.indexOf(filter.toLowerCase) >= 0 || 
-        row.title.toString.toLowerCase.indexOf(filter.toLowerCase) >= 0 || 
-        row.body.toString.toLowerCase.indexOf(filter.toLowerCase) >= 0 
+
+          row.id.toString.toLowerCase.indexOf(filter.toLowerCase) >= 0 ||
+            row.userId.toString.toLowerCase.indexOf(filter.toLowerCase) >= 0 ||
+            row.title.toString.toLowerCase.indexOf(filter.toLowerCase) >= 0 ||
+            row.body.toString.toLowerCase.indexOf(filter.toLowerCase) >= 0
         })
-      val maxPages = filteredData.length / state.externalResultsPerPage.toInt
-      this.setState(new JSStateGriddleWithExternalData(filteredData.slice(0, state.externalResultsPerPage), state.currentPage, maxPages, state.externalResultsPerPage, state.externalSortColumn, state.externalSortAscending, filteredData))
+      if (filteredData.length == 0) {
+    
+        this.setState(new JSStateGriddleWithExternalData(js.Array(), 0, state.maxPages, state.externalResultsPerPage, state.externalSortColumn, state.externalSortAscending, filteredData))
+ 
+
+      } else {
+        val maxPages = filteredData.length / state.externalResultsPerPage.toInt
+        this.setState(new JSStateGriddleWithExternalData(filteredData.slice(0, state.externalResultsPerPage), state.currentPage, maxPages, state.externalResultsPerPage, state.externalSortColumn, state.externalSortAscending, filteredData))
+      }
     }
 
   }
