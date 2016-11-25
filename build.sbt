@@ -24,7 +24,8 @@ val reactBootstrap ="org.webjars.npm" % "react-bootstrap" % "0.30.6" / "react-bo
 //val reactRouterBootstrapxxxxx= "org.webjars.npm" % "react-router-bootstrap" % "0.23.1" / "ReactRouterBootstrap.js"  minified "ReactRouterBootstrap.min.js" dependsOn "ReactRouter.js"
 val reactRouter= "org.webjars.npm" % "react-router" % "4.0.0-alpha.6" / "react-router.js"  minified "react-router.min.js" dependsOn ("dist/react-with-addons.js","react-dom.js")
 val reactDom= "org.webjars.npm" % "react-dom" % "15.3.2" / "react-dom.js"         commonJSName "ReactDOM" minified "react-dom.min.js"   dependsOn "dist/react-with-addons.js"
-val griddle="org.webjars.npm" % "griddle-react" % "0.7.0" / "Griddle.js"   
+val griddle="org.webjars.npm" % "griddle-react" % "0.7.0" / "Griddle.js"   dependsOn "dist/react-with-addons.js"
+val react-select2="org.webjars.npm" % "react-select" % "1.0.0-rc.2" /    "react-select.js"  minified react-select.min.js dependsOn "dist/react-with-addons.js"
 
 unmanagedBase <<= baseDirectory { base => base / "libs" }
 
