@@ -82,11 +82,15 @@ object Index extends JSApp {
                        <ul role="nav">
                          <li><Link to="/json1" activeStyle={ styleRed }>Get Ajax and Results in Griddle </Link></li>
                          <li><Link to="/griddleWithExternalData" activeStyle={ styleRed }>Get Ajax and Results in Griddle with ExternalData </Link></li>
+                         <li><Link to="/select2" activeStyle={ styleRed }>react-Select Example 1 </Link></li>
+                         <li><Link to="/select2Creatable" activeStyle={ styleRed }>react-Select2 Creatable </Link></li>
                        </ul>
                      </div>
                      <Match exactly={ true } pattern="/" component={ home }/>
                      <Match pattern="/json1" component={ Json1 }/>
                      <Match pattern="/griddleWithExternalData" component={ GriddleWithExternalData }/>
+                     <Match pattern="/select2" component={ Select2 }/>
+                     <Match pattern="/select2Creatable" component={ Select2Creatable }/>
                      <Miss component={ noMatch }/>
                    </div>
                  </BrowserRouter>
