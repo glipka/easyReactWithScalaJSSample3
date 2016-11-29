@@ -61,23 +61,10 @@ class JSStateSelect2(
 class Select2(val props: JSPropsSelect2[Any]) extends Component[JSPropsSelect2[Any], JSStateSelect2](props) {
   this.state = new JSStateSelect2("US", false, false, "new-south-wales", true)
 
-  override def componentWillMount: Unit = {
-//    val url = "https://jsonplaceholder.typicode.com/posts"
-//
-//    Ajax.get(url).onSuccess {
-//      case xhr: XMLHttpRequest =>
-//        val responseText = js.JSON.parse(xhr.responseText).asInstanceOf[js.Array[Dynamic]]
-//
-//        setState(new JSStateJson1(responseText))
-//
-//      case _ => println("erreur parsing")
-//
-//    }
-
-  }
+  override def componentWillMount: Unit = {}
 
   val value = "value"
-  val label = "Cities in Countries"
+  val label = "label"
   val className = "className"
 
   val AU = js.Array[js.Dynamic](
@@ -175,15 +162,16 @@ class Select2(val props: JSPropsSelect2[Any]) extends Component[JSPropsSelect2[A
 
      var options  :Array[Dynamic] = null
     
-     
+     //  onChange={this.updateValue.bind(this)}
      
   @XmlToCreatElement(true)
   override def render(): Any = {
-    {  if (state.country == "US") options=US else options=AU }
+   
     <Panel header="List of Countries" bsStyle="primary" collapsible={ true } defaultExpanded={ true }>
       <div className="section">
         <h3 className="section-heading">{  label }</h3>
-        <Select_ ref="stateSelect" autofocus={ true }   options={ options }    clearable={ this.state.clearable } name="selected-state" disabled={ this.state.disabled } value={ this.state.selectValue } onChange={ this.updateValue.bind(this) } searchable={ this.state.searchable }/>
+ {  if (state.country == "US") options=US else options=AU }
+        <Select_ ref="stateSelect" autofocus={ true }   options={ options }    clearable={ this.state.clearable } name="selected-state" disabled={ this.state.disabled } value={ this.state.selectValue } searchable={ this.state.searchable }/>
         <div style={ literal("marginTop" -> 14) }>
           <button type="button" onClick={ this.focusStateSelect }>Focus Select</button>
           <label className="checkbox" style={ literal("marginLeft" -> 10) }>
